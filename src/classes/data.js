@@ -1,4 +1,4 @@
-import {blds, caths, rps, facs} from '../../public/web2p';
+import {blds, caths, rps, facs} from '../classes/web2p';
 
 let buildings = [];
 let cathedras = [];
@@ -6,25 +6,27 @@ let facss = [];
 
 if(blds === undefined){
     // eslint-disable-next-line no-undef
-    blds = builds;
+    blds = [];
     // eslint-disable-next-line no-undef
-    caths = cathes;
+    caths = [];
     // eslint-disable-next-line no-undef
-    rps = rpes;
+    rps = [];
     // eslint-disable-next-line no-undef
-    facs = faces;
+    facs = [];
 }
 
-blds.forEach((building)=>{
-    buildings.push({name: building.name, id: building.id, purpose: building.purpose});
+JSON.parse(blds).forEach((building)=>{
+    buildings.push({name: building.name, id: building.id, purpose: building.purpose, rooms: building.rooms});
 });
 
-caths.forEach((cath)=>{
+JSON.parse(caths).forEach((cath)=>{
     cathedras.push({name: cath.name, id: cath.id});
 })
+console.log(cathedras);
 
-facs.forEach((fac)=>{
+JSON.parse(facs).forEach((fac)=>{
     facss.push({name: fac.name, id: fac.id});
 })
+console.log(facss);
 
-export {blds, buildings, caths, facss, rps}
+export {buildings, caths, facss, rps}

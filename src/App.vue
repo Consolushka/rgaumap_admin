@@ -1,7 +1,7 @@
 <template>
   <v-app id="app">
     <div class="d-flex align-center justify-center" style="height: 100vh; min-width: 40%">
-    <router-view style="width: 60%"/>
+      <HelloWorld></HelloWorld>
     </div>
   </v-app>
 </template>
@@ -28,3 +28,15 @@
   }
 }
 </style>
+
+<script>
+
+import HelloWorld from '@/components/HelloWorld.vue'
+
+export default {
+  name: 'App',
+  components: {
+    HelloWorld
+  }
+}
+</script>
