@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid style="margin-top: -100px">
     <v-progress-circular v-if="loaded"
                          indeterminate
                          :size="100"
@@ -7,6 +7,7 @@
                          color="#3d7648"
     ></v-progress-circular>
     <v-row align="center" class="d-flex flex-column jq-test" v-if="!loaded">
+      <img src="https://eldala.kz/uploads/all/08/3f/a2/083fa256914b2fd099e52cff61842a2e.jpg" height="227" width="328" style="margin-bottom: 20px">
       <v-col
           class="d-flex"
           cols="12"
@@ -20,15 +21,15 @@
             return-object
             single-line
             v-model="selectedBuilding"
-            label="Outlined style"
+            label="Выберите корпус"
             outlined
             @change="selectBuilding()"
         ></v-select>
       </v-col>
       <v-col v-if="showSelection"
-          cols="12"
-          sm="6">
-        <v-row>
+             cols="12"
+             sm="6">
+        <v-row style="margin: 0;justify-content: space-between;">
           <v-col
               width="50" cols="2" style="margin-top: -12px; padding: 0">
             <v-select
@@ -41,10 +42,9 @@
                 @change="selectFloor"
             ></v-select>
           </v-col>
-          <v-col>
-            <v-icon>mdi-magnify</v-icon>
+          <v-col cols="6">
+            <v-btn style="margin-right: -40px" color="success" @click="CreateNew">Добавить новый кабинет</v-btn>
           </v-col>
-          <v-col @click="CreateNew">Добавить новое</v-col>
         </v-row>
         <v-row v-if="currentRooms.length > 0" class="d-flex flex-wrap">
           <v-btn v-for="room in currentRooms" :key=room.id
@@ -101,11 +101,13 @@
         </v-form>
       </v-col>
     </v-row>
+    <v-snackbar v-model="isSuccessRequest" color="green" timeout="2000">Успешно</v-snackbar>
+    <v-snackbar v-model="isErrorRequest" color="red" timeout="2000">Ошибка</v-snackbar>
   </v-container>
 </template>
 
 <style>
-.cc{
+.cc {
   width: 80%;
 }
 </style>
@@ -128,7 +130,10 @@ export default {
     floorsInBld: [],
     showRoom: false,
     showSelection: false,
+    logo: require('../assets/timacad-logo.png'),
     select: {state: 'Florida', abbr: 'FL'},
+    isSuccessRequest: false,
+    isErrorRequest: false,
   }),
   methods: {
     selectBuilding() {
@@ -198,19 +203,18 @@ export default {
       if (res.id === 0) {
         this.axios.post(`/rgaumap_admin/default/api`, res)
             .then(() => {
-              console.log("fine");
+              this.isSuccessRequest = true;
             })
             .catch(() => {
-              console.log("error");
+              this.isErrorRequest = true;
             })
-      }
-      else{
+      } else {
         this.axios.put(`/rgaumap_admin/default/api`, res)
             .then(() => {
-              console.log("fine");
+              this.isSuccessRequest = true;
             })
             .catch(() => {
-              console.log("error");
+              this.isErrorRequest = true;
             })
       }
       console.log(res);
@@ -226,10 +230,10 @@ export default {
       };
       this.axios.delete(`/rgaumap_admin/default/api/${res.id}`)
             .then(() => {
-              console.log("fine");
+              this.isSuccessRequest = true;
             })
             .catch(() => {
-              console.log("error");
+              this.isErrorRequest = true;
             })
       console.log(res);
     }
