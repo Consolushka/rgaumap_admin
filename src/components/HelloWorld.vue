@@ -201,7 +201,7 @@ export default {
         purpose: this.selectedRoom.purpose.id
       };
       if (res.id === 0) {
-        this.axios.post(`/rgaumap_admin/default/api`, res)
+        this.axios.post(`/rgaumap_admin/default/api/post`, res)
             .then(() => {
               this.isSuccessRequest = true;
             })
@@ -209,7 +209,7 @@ export default {
               this.isErrorRequest = true;
             })
       } else {
-        this.axios.put(`/rgaumap_admin/default/api`, res)
+        this.axios.put(`/rgaumap_admin/default/api/put`, res)
             .then(() => {
               this.isSuccessRequest = true;
             })
@@ -228,7 +228,7 @@ export default {
         owner: this.selectedRoom.owner.id,
         purpose: this.selectedRoom.purpose.id
       };
-      this.axios.delete(`/rgaumap_admin/default/api/${res.id}`)
+        this.axios.put(`/rgaumap_admin/default/api/delete`, {"id": res.id})
             .then(() => {
               this.isSuccessRequest = true;
             })
@@ -239,7 +239,7 @@ export default {
     }
   },
   created() {
-    this.axios.get('/rgaumap_admin/default/api/person/1')
+    this.axios.get('/rgaumap_admin/default/api')
         .then(response => {
           this.buildings = response.data.buildings;
           this.caths = response.data.caths;
