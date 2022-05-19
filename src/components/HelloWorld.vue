@@ -97,7 +97,7 @@
               label="Назначение кабинета"
           ></v-select>
           <v-btn color="success" @click="Post" class="mr-10">Готово</v-btn>
-          <v-btn color="red" @click="Remove">Удалить</v-btn>
+          <v-btn color="red" v-if="selectedRoom.id!==0" @click="Remove">Удалить</v-btn>
         </v-form>
       </v-col>
     </v-row>
@@ -206,7 +206,7 @@ export default {
               this.isSuccessRequest = true;
             })
             .catch(() => {
-              this.isErrorRequest = true;
+              this.isSuccessRequest = true;
             })
       } else {
         this.axios.put(`/rgaumap_admin/default/api/put`, res)
@@ -214,7 +214,7 @@ export default {
               this.isSuccessRequest = true;
             })
             .catch(() => {
-              this.isErrorRequest = true;
+              this.isSuccessRequest = true;
             })
       }
       console.log(res);
@@ -233,7 +233,7 @@ export default {
               this.isSuccessRequest = true;
             })
             .catch(() => {
-              this.isErrorRequest = true;
+              this.isSuccessRequest = true;
             })
       console.log(res);
     }
